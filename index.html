@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+	<title>2048</title>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<style type="text/css">
+		body {
+			color: black;
+			font-family: sans-serif;
+			font-size: 24px;
+			/*font-weight: bold;*/
+		}
+
+		p {
+			font-size: 14px;
+		}
+		.centered-block { margin: 0 auto; }
+
+		#div_2048_grid {
+			margin: 30px auto;
+			width: 450px;
+			padding: 0;
+			border: 1px solid #888;
+			border-radius: 5px;
+			background-color: #eef;
+		}
+
+		.cell-2048 {
+			float: left;
+			width: 100px;
+			height: 100px;
+			padding: 0;
+			margin: 6px;
+			border: 0;
+			border-radius: 3px;
+			background-color: #aaa;
+			text-align: center;
+		}
+		.cell-2048:hover {
+			background-color: #ccf;
+		}
+
+		.control-button {
+			display: inline-block;
+			width: 100%;
+		}
+
+		.cell-number {
+			display: inline-block;
+			margin-top: 35%;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="centered-block" style="width: 800px;">
+		<h1>Medullan 2nd test.</h1>
+		<h2>Candidate: Kofi Doku Atuah</h2>
+		<address><a href="http://www.linkedin.com/pub/kofi-doku-atuah/4a/205/14">LinkedIn</a></address>
+		<address><a href="mailto:latentprion@gmail.com">Email</a></address>
+		<p>
+			This is an implementation of
+			<a href="http://gabrielecirulli.com/">Gabriele Cirulli's</a>
+			popular game "<a href="http://gabrielecirulli.github.io/2048/">2048</a>",
+			written <em>entirely</em> from scratch by Kofi Doku Atuah for the
+			Medullan recruitment's 2nd test.
+		</p>
+		<p>
+			To play, first <strong>click on the grid to activate keyboard capture</strong>.
+			Then use the <strong>arrow keys</strong> (up, down, left and right) to nudge the
+			grid in the direction you want. The goal is to merge the
+			numbers until you reach <strong>2048</strong>.
+		</p>
+		<p>
+			Should you run out of grid-space before you hit 2048, you will
+			fail the game.
+		</p>
+		<p>
+			Click the grid to deactivate keyboard-capture. Click it again to
+			re-capture. Click it again to deactivate, and so on, ad infinitum.
+			Click the <strong>"Reset" button below to reset the grid and try again</strong>.
+		</p>
+	</div>
+	<div class="centered-block" style="width: 200px">
+		<button id="button_2048_reset" class="control-button centered-block">Reset</button>
+		<br style="clear: left" />
+	</div>
+	<div id="div_2048_grid">
+		<div class="cell-2048"></div>
+		<div class="cell-2048"></div>
+		<div class="cell-2048"></div>
+		<div class="cell-2048"></div>
+
+		<div class="cell-2048"></div>
+		<div class="cell-2048"></div>
+		<div class="cell-2048"></div>
+		<div class="cell-2048"></div>
+
+		<div class="cell-2048"></div>
+		<div class="cell-2048"></div>
+		<div class="cell-2048"></div>
+		<div class="cell-2048"></div>
+
+		<div class="cell-2048"></div>
+		<div class="cell-2048"></div>
+		<div class="cell-2048"></div>
+		<div class="cell-2048"></div>
+		<br style="clear: left" />
+	</div>
+
+	<script type="text/javascript" data-main="js/main.min.js" src="bower_components/requirejs/require.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,12 @@
+{
+  "name": "medullan-test-2",
+  "description": "Kofi Doku Atuah's submission for Medullan's second test.",
+  "version": "0.0.0",
+  "homepage": "https://github.com/latentprion/medullan-test-2",
+  "license": "GPLv2",
+  "private": true,
+  "dependencies": {
+    "bootstrap": "~3.1.1",
+    "requirejs": "latest"
+  }
+}
