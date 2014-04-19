@@ -23,7 +23,7 @@
  * 	1. [x]When the player cannot collapse or shift in a direction, refuse
  * 	   to spawn a new number.
  *	2. [x]Colours.
- *	3. [ ]Check for end-game condition.
+ *	3. [ ]Check for end-game conditions (win and failure).
  *	4. [x]Don't redraw if there were no changes to the grid.
  */
 define(function () {
