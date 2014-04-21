@@ -133,18 +133,17 @@ define(function() {
 	};
 
 	lib.edgeSquareSet = function(plan) {
-		return this.topSquareSet(plan) || this.rightSquareSet(plan)
-			|| this.bottomSquareSet(plan)
-			|| this.leftSquareSet(plan);
+		return this.topSquareSet(plan) || this.rightSquareSet(plan) ||
+			this.bottomSquareSet(plan) || this.leftSquareSet(plan);
 	};
 
 	TicTacToeBoard.prototype.reset = function(_difficulty, _mode) {
 		var		i;
 
 		this.currentPlan = null;
-		this.haveCenterSquare
-			= this.haveTopSquare = this.haveRightSquare
-			= this.haveBottomSquare = this.haveLeftSquare = 0;
+		this.haveCenterSquare =
+			this.haveTopSquare = this.haveRightSquare =
+			this.haveBottomSquare = this.haveLeftSquare = 0;
 
 		switch (_difficulty) {
 		case 'easy': this.difficulty = 'easy'; break;
@@ -168,7 +167,7 @@ define(function() {
 		this.nEmpty = this.squares.length;
 		for (i=0; i<this.squares.length; i++) {
 			this.squares[i] = MARK_EMPTY;
-		};
+		}
 
 		this.selectFirstPlayer();
 		if (mode == 'single-player') {
@@ -193,9 +192,9 @@ define(function() {
 		rngNum = Math.floor(Math.random() * 10);
 		rngNum %= 2;
 
-		this.currentPlayer = (rngNum === 0)
-			? MARK_X : MARK_Y;
-	}
+		this.currentPlayer = (rngNum === 0) ?
+			MARK_X : MARK_Y;
+	};
 
 	TicTacToeBoard.prototype.setSquare = function(square, mark) {
 		this.squares[square] = mark;
@@ -464,12 +463,12 @@ define(function() {
 	TicTacToeBoard.prototype.userPlay =  function(square) {
 		// Set square for the current player.
 		this.setSquare(square, this.currentPlayer);
-	}
+	};
 
 	TicTacToeBoard.prototype.changePlayer = function() {
-		this.currentPlayer = (this.currentPlayer == MARK_X)
-			? MARK_O : MARK_X;
-	}
+		this.currentPlayer = (this.currentPlayer == MARK_X) ?
+			MARK_O : MARK_X;
+	};
 
 	TicTacToeBoard.prototype.clickEvent = function(square) {
 		// Ignore clicks if the board is filled out.
@@ -564,11 +563,11 @@ define(function() {
 		}
 
 		return false;
-	}
+	};
 
 	TicTacToeBoard.prototype.checkForTieCondition = function() {
 		return this.nEmpty === 0;
-	}
+	};
 
 	TicTacToeBoard.prototype.draw = function() {
 		var		i, elems;
@@ -585,7 +584,7 @@ define(function() {
 				this.squares[i] +
 				'</span>';
 		}
-	}
+	};
 
 	return lib;
-})
+});

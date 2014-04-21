@@ -15,16 +15,14 @@
  *
  */
 
-require(["2048", "tic-tac-toe"], function (_2048, ttt) {
-	var		board, tttboard;
+require(["2048"], function (_2048) {
+	var		board;
 	var		grid;
 	var		keyboardIsCaptured=false;
 
 	grid = document.getElementById('div_2048_grid');
 	// New game with target = 2048, and fresh number value = 2.
 	board = _2048.newBoard(grid, 2048, 2);
-	// New game of tic tac toe.
-	tttboard = ttt.newTicTacToeBoard(grid);
 
 	// Keyboard arrow handler.
 	function keydown_2048(event) {

@@ -12,14 +12,18 @@ node-http-server: all
 test: all
 
 js: js-lint js-minify
-js-lint: js/2048.js js/main.js
+
+js-lint: js/2048.js js/2048-main.js js/tic-tac-toe.js js/tic-tac-toe-main.js
 	@jshint $?
 
-js-minify: js/main.js js/2048.js
-	r.js -o baseUrl=js name=main out=js/main.min.js
+js-minify: js/2048-main.min.js js/tic-tac-toe-main.min.js
+js/2048-main.min.js: js/2048-main.js js/2048.js
+	@r.js -o baseUrl=js name=2048-main out=js/2048-main.min.js
+js/tic-tac-toe-main.min.js: js/tic-tac-toe.js js/tic-tac-toe-main.js
+	@r.js -o baseUrl=js name=tic-tac-toe-main out=js/tic-tac-toe-main.min.js
 
 js-clean:
-	rm -f js/main.min.js
+	rm -f js/*.min.js
 
 css: css-lint css-minify
 css-lint:
