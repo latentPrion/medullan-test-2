@@ -27,24 +27,37 @@ require(["2048"], function (_2048) {
 	// Keyboard arrow handler.
 	function keydown_2048(event) {
 		var		e;
-		var		needToRedraw=0, needToStopBubbling=true;
+		var		status='continue', needToStopBubbling=true;
 
 		e = event || window.event;
 
 		// We only respond to the arrow keys.
 		switch (e.keyCode) {
-		case 37: needToRedraw = board.moveLeft(); break;
-		case 38: needToRedraw = board.moveUp(); break;
-		case 39: needToRedraw = board.moveRight(); break;
-		case 40: needToRedraw = board.moveDown(); break;
+		case 37: status = board.playerMove('left'); break;
+		case 38: status = board.playerMove('up'); break;
+		case 39: status = board.playerMove('right'); break;
+		case 40: status = board.playerMove('down'); break;
 		default: needToStopBubbling = false; break;
 		}
 
-		if (needToRedraw)
-			{ board.draw(); }
+		if (/*status != 'continue' && */status != 'ignore') {
+			if (status == 'continue-and-draw')
+				{ /* We call draw() later on */ }
+
+			// If game is over:
+			if (status == 'failure') {
+				alert('Game over: You\'ve lost!. Better luck next time.');
+			}
+
+			if (status == 'victory') {
+				alert('Congratulations: you\'ve won!');
+			}
+
+			board.draw();
+		}
+
 
 		if (needToStopBubbling) {
-			console.log('preventDef val: '+e.preventDefault);
 			if (e.preventDefault) { e.preventDefault(); }
 		}
 

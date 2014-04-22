@@ -34,6 +34,7 @@ define(function () {
 		this.nEmpty = MAX_NSQUARES;
 		this.targetMaxNum = _targetMaxNum;
 		this.newNumVal = _newNumVal;
+		this.gameOver = false;
 		this.grid = _grid;
 		this.squares = [
 			EMPTY_VAL, EMPTY_VAL, EMPTY_VAL, EMPTY_VAL,
@@ -60,6 +61,7 @@ define(function () {
 	Board.prototype.reset = function() {
 		var		i;
 
+		this.gameOver = false;
 		for (i=0; i<MAX_NSQUARES; i++) this.squares[i] = EMPTY_VAL;
 		this.nEmpty = MAX_NSQUARES;
 
@@ -247,59 +249,53 @@ define(function () {
 		}
 	};
 
-	Board.prototype.moveDown = function() {
-		var		shifted, collapsed;
+	Board.prototype.playerMove = function(direction) {
+		var		shifted=0, collapsed=0;
 
-		shifted = this.shiftDown();
-		collapsed = this.collapseDown();
-		shifted += this.shiftDown();
+		if (this.gameOver) { return 'ignore'; }
+
+		switch (direction) {
+		case 'right':
+			shifted = this.shiftRight();
+			collapsed = this.collapseRight();
+			shifted += this.shiftRight();
+			break;
+		case 'left':
+			shifted = this.shiftLeft();
+			collapsed = this.collapseLeft();
+			shifted += this.shiftLeft();
+			break;
+		case 'up':
+			shifted = this.shiftUp();
+			collapsed = this.collapseUp();
+			shifted += this.shiftUp();
+			break;
+		case 'down':
+			shifted = this.shiftDown();
+			collapsed = this.collapseDown();
+			shifted += this.shiftDown();
+			break;
+		}
+
 		if (shifted || collapsed)
 			{ this.spawnNewNumber(); }
 
-		return (shifted + collapsed);
-	};
+		if (this.checkForVictoryCondition()) { return 'victory'; }
+		if (this.checkForFailureCondition()) { return 'failure'; }
 
-	Board.prototype.moveUp = function() {
-		var		shifted, collapsed;
-
-		shifted = this.shiftUp();
-		collapsed = this.collapseUp();
-		shifted += this.shiftUp();
-		if (shifted || collapsed)
-			{ this.spawnNewNumber(); }
-
-		return (shifted + collapsed);
-	};
-
-	Board.prototype.moveLeft = function() {
-		var		shifted, collapsed;
-
-		shifted = this.shiftLeft();
-		collapsed = this.collapseLeft();
-		shifted += this.shiftLeft();
-		if (shifted || collapsed)
-			{ this.spawnNewNumber(); }
-
-		return (shifted + collapsed);
-	};
-
-	Board.prototype.moveRight = function() {
-		var		shifted, collapsed;
-
-		shifted = this.shiftRight();
-		collapsed = this.collapseRight();
-		shifted += this.shiftRight();
-		if (shifted || collapsed)
-			{ this.spawnNewNumber(); }
-
-		return (shifted + collapsed);
+		return (shifted + collapsed > 0) ?
+			'continue-and-draw' : 'continue';
 	};
 
 	Board.prototype.checkForVictoryCondition = function() {
 		/* If any square has a value of this.targetMaxNum, the
 		 * victory condition is satisfied.
 		 **/
-		return this.squares.indexOf(this.targetMaxNum) != -1;
+		if (this.squares.indexOf(this.targetMaxNum) != -1) {
+			this.gameOver = true;
+		}
+
+		return this.gameOver;
 	};
 
 	// "Stride" can be negative.
@@ -328,6 +324,8 @@ define(function () {
 		 * If the board is full, and we cannot find any contiguous blocks
 		 * that can be merged, the player has failed.
 		 **/
+		if (this.nEmpty !== 0) { return false; }
+
 		for (i=0; i<16; i+=4) {
 			if (this.checkRowForMergeableSquares(i, 1)) {
 				return false;
@@ -339,7 +337,7 @@ define(function () {
 			}
 		}
 
-		return true;
+		return (this.gameOver = true);
 	};
 
 	return lib;

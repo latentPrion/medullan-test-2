@@ -6,8 +6,49 @@ require(["tic-tac-toe"], function(ttt) {
 	gridSquares = grid.getElementsByTagName('div');
 	board = ttt.newTicTacToeBoard(grid, 'div');
 
+	function filterElementsByNodeName(elems, name) {
+		var		i, retArray = [];
+
+		for (i=0; i<elems.length; i++) {
+			if (elems[i].name == name)
+				{ retArray.push(elems[i]); }
+		}
+
+		return retArray;
+	}
+
+	function ttt_getSelectedDifficulty() {
+		var		i, radios, diffRadios;
+
+		radios = document.getElementsByTagName('input');
+		diffRadios = filterElementsByNodeName(radios, 'rad_ttt_difficulty');
+
+		for (i=0; i<diffRadios.length; i++) {
+			if (diffRadios[i].checked)
+				{ return diffRadios[i].value; }
+		}
+
+		console.log('EXCEPTION: No radio value for difficulty is checked. Returning hard mode.');
+		return 'hard';
+	}
+
+	function ttt_getSelectedMode() {
+		var		i, radios, modeRadios;
+
+		radios = document.getElementsByTagName('input');
+		modeRadios = filterElementsByNodeName(radios, 'rad_ttt_mode');
+
+		for (i=0; i<modeRadios.length; i++) {
+			if (modeRadios[i].checked)
+				{ return modeRadios[i].value; }
+		}
+
+		console.log('EXCEPTION: No radio value for mode is checked. Returning AI mode.');
+		return 'ai';
+	}
+
 	document.getElementById('button_ttt_reset').addEventListener('click', function() {
-		board.reset('hard', 'ai');
+		board.reset(ttt_getSelectedDifficulty(), ttt_getSelectedMode());
 		board.draw();
 	});
 
@@ -39,6 +80,6 @@ require(["tic-tac-toe"], function(ttt) {
 			'click', gridSquare_onClick_handler);
 	}
 
-	board.reset('hard', 'ai');
+	board.reset(ttt_getSelectedDifficulty(), ttt_getSelectedMode());
 	board.draw();
 });

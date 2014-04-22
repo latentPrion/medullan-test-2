@@ -183,6 +183,9 @@ define(function() {
 				this.changePlayer();
 			}
 		}
+
+		console.log('Reset: New game: diff: '+this.difficulty+
+			', mode: '+this.mode);
 	};
 
 	TicTacToeBoard.prototype.selectFirstPlayer = function() {
@@ -402,8 +405,8 @@ define(function() {
 		}
 
 		// NORMAL mode: check for edge square availability.
-		if ((this.difficulty == 'normal' || this.difficulty == 'hard')
-			&& lib.edgeSquareSet(this.currentPlan)) {
+		if ((this.difficulty == 'normal' || this.difficulty == 'hard') &&
+			lib.edgeSquareSet(this.currentPlan)) {
 			var		top, bottom, left, right;
 
 			// Which edge(s) are set in the plan?

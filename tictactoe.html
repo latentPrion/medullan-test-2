@@ -67,16 +67,35 @@
 		<p>
 			To play, first select whether you want to play <strong>versus the AI</strong>,
 			or you want to play a <strong>two-player game</strong>. Then choose your <strong>desired
-			difficulty</strong>. You can change these anytime by selecting new
-			options and clicking <strong>reset</strong>.
+			difficulty</strong>. You can change these options anytime by selecting new
+			options and clicking <strong>reset to apply the new options</strong>.
 		</p>
 		<p>
 			To reset the board after a game is done, click
 			<strong>reset</strong>.
 		</p>
+		<p>
+			If the game is in <strong>single-player</strong> mode, sometimes
+			the <strong>AI will play first</strong> and other times, the
+			<strong>player</strong> will be expected to
+			<strong>make the first move</strong>
+		</p>
+
 	</div>
 	<div class="centered-block" style="width: 400px">
 		<button id="button_ttt_reset" style="float: left" class="control-button centered-block">Reset Tic-tac-toe</button>
+		<br /><hr style="width:100%">
+
+		<ul style="list-style: none">
+			<li><label><input type="radio" name="rad_ttt_mode" value="ai" checked="checked" /> Single-player (versus. AI)</label></li>
+			<li><label><input type="radio" name="rad_ttt_mode" value="two-player" /> Two-player</label></li>
+		</ul>
+		<hr style="width:100%">
+
+		<label><input type="radio" name="rad_ttt_difficulty" value="easy" /> Easy</label>
+		<label><input type="radio" name="rad_ttt_difficulty" value="normal" /> Normal</label>
+		<label><input type="radio" name="rad_ttt_difficulty" value="hard" checked="checked" /> Hard</label>
+
 		<br style="clear: left" />
 	</div>
 	<div id="div_ttt_grid" class="centered-block">
@@ -93,7 +112,7 @@
 		<div class="cell-ttt"></div>
 		<br style="clear: left" />
 	</div>
-	<script type="text/javascript" data-main="js/tic-tac-toe-main.js" src="bower_components/requirejs/require.js"></script>
+	<script type="text/javascript" data-main="js/tic-tac-toe-main.min.js" src="bower_components/requirejs/require.js"></script>
 </body>
 
 </html>
