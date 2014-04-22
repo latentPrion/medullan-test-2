@@ -27,9 +27,9 @@ require(["2048"], function (_2048) {
 	// Keyboard arrow handler.
 	function keydown_2048(event) {
 		var		e;
-		var		needToRedraw=0;
+		var		needToRedraw=0, needToStopBubbling=true;
 
-		e = window.event || event;
+		e = event || window.event;
 
 		// We only respond to the arrow keys.
 		switch (e.keyCode) {
@@ -37,10 +37,18 @@ require(["2048"], function (_2048) {
 		case 38: needToRedraw = board.moveUp(); break;
 		case 39: needToRedraw = board.moveRight(); break;
 		case 40: needToRedraw = board.moveDown(); break;
+		default: needToStopBubbling = false; break;
 		}
 
 		if (needToRedraw)
 			{ board.draw(); }
+
+		if (needToStopBubbling) {
+			console.log('preventDef val: '+e.preventDefault);
+			if (e.preventDefault) { e.preventDefault(); }
+		}
+
+		return needToStopBubbling;
 	}
 
 	// When the user clicks on the grid, it toggles the keyboard capture.

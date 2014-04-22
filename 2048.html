@@ -17,28 +17,12 @@
 		}
 		.centered-block { margin: 0 auto; }
 
-		#div_container {
-			width: 840px;
-		}
-
 		#div_2048_grid {
-			float: left;
-			margin: 30px 10px;
 			width: 450px;
 			padding: 0;
 			border: 1px solid #888;
 			border-radius: 5px;
 			background-color: #eef;
-		}
-
-		#div_ttt_grid {
-			float: left;
-			margin: 30px 10px;
-			width: 338px;
-			padding: 0;
-			border: 1px solid #888;
-			border-radius: 5px;
-			background-color: #ecc;
 		}
 
 		.cell-2048 {
@@ -58,7 +42,7 @@
 
 		.control-button {
 			display: block;
-			width: auto;
+			width: 100%;
 		}
 
 		.cell-number {
@@ -99,47 +83,31 @@
 	</div>
 	<div class="centered-block" style="width: 400px">
 		<button id="button_2048_reset" style="float: left" class="control-button centered-block">Reset 2048</button>
-		<button id="button_2048_reset" style="float: right" class="control-button centered-block">Reset Tic-Tac-Toe</button>
 		<br style="clear: left" />
 	</div>
-	<div id="div_container" class="centered-block">
-		<div id="div_2048_grid">
-			<div class="cell-2048"></div>
-			<div class="cell-2048"></div>
-			<div class="cell-2048"></div>
-			<div class="cell-2048"></div>
+	<div id="div_2048_grid" class="centered-block">
+		<div class="cell-2048"></div>
+		<div class="cell-2048"></div>
+		<div class="cell-2048"></div>
+		<div class="cell-2048"></div>
 
-			<div class="cell-2048"></div>
-			<div class="cell-2048"></div>
-			<div class="cell-2048"></div>
-			<div class="cell-2048"></div>
+		<div class="cell-2048"></div>
+		<div class="cell-2048"></div>
+		<div class="cell-2048"></div>
+		<div class="cell-2048"></div>
 
-			<div class="cell-2048"></div>
-			<div class="cell-2048"></div>
-			<div class="cell-2048"></div>
-			<div class="cell-2048"></div>
+		<div class="cell-2048"></div>
+		<div class="cell-2048"></div>
+		<div class="cell-2048"></div>
+		<div class="cell-2048"></div>
 
-			<div class="cell-2048"></div>
-			<div class="cell-2048"></div>
-			<div class="cell-2048"></div>
-			<div class="cell-2048"></div>
-			<br style="clear: left" />
-		</div>
-		<div id="div_ttt_grid">
-			<div class="cell-2048"></div>
-			<div class="cell-2048"></div>
-			<div class="cell-2048"></div>
-
-			<div class="cell-2048"></div>
-			<div class="cell-2048"></div>
-			<div class="cell-2048"></div>
-
-			<div class="cell-2048"></div>
-			<div class="cell-2048"></div>
-			<div class="cell-2048"></div>
-		</div>
+		<div class="cell-2048"></div>
+		<div class="cell-2048"></div>
+		<div class="cell-2048"></div>
+		<div class="cell-2048"></div>
+		<br style="clear: left" />
 	</div>
-	<script type="text/javascript" data-main="js/main.min.js" src="bower_components/requirejs/require.js"></script>
+	<script type="text/javascript" data-main="js/2048-main.js" src="bower_components/requirejs/require.js"></script>
 </body>
 
 </html>

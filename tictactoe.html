@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+	<title>Tic-Tac-Toe</title>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<style type="text/css">
+		body {
+			color: black;
+			font-family: sans-serif;
+			font-size: 24px;
+			/*font-weight: bold;*/
+		}
+
+		p {
+			font-size: 14px;
+		}
+
+		.centered-block { margin: 0 auto; }
+
+		#div_ttt_grid {
+			width: 336px;
+			padding: 0;
+			border: 1px solid #888;
+			border-radius: 5px;
+			background-color: #eef;
+		}
+
+		.cell-ttt {
+			float: left;
+			width: 100px;
+			height: 100px;
+			padding: 0;
+			margin: 6px;
+			border: 0;
+			border-radius: 3px;
+			background-color: #aaa;
+			text-align: center;
+		}
+		.cell-ttt:hover {
+			background-color: #ccf;
+		}
+
+		.control-button {
+			display: block;
+			width: 100%;
+		}
+
+		.cell-value {
+			display: inline-block;
+			margin-top: 35%;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="centered-block" style="width: 800px;">
+		<h1>Medullan 2nd test.</h1>
+		<h2>Candidate: Kofi Doku Atuah</h2>
+		<address><a href="http://www.linkedin.com/pub/kofi-doku-atuah/4a/205/14">LinkedIn</a></address>
+		<address><a href="mailto:latentprion@gmail.com">Email</a></address>
+		<p>
+			This is an implementation of the very well-known game, Tic-Tac-Toe,
+			written <em>entirely</em> from scratch by Kofi Doku Atuah for the
+			Medullan recruitment's 2nd test.
+		</p>
+		<p>
+			To play, first select whether you want to play <strong>versus the AI</strong>,
+			or you want to play a <strong>two-player game</strong>. Then choose your <strong>desired
+			difficulty</strong>. You can change these anytime by selecting new
+			options and clicking <strong>reset</strong>.
+		</p>
+		<p>
+			To reset the board after a game is done, click
+			<strong>reset</strong>.
+		</p>
+	</div>
+	<div class="centered-block" style="width: 400px">
+		<button id="button_ttt_reset" style="float: left" class="control-button centered-block">Reset Tic-tac-toe</button>
+		<br style="clear: left" />
+	</div>
+	<div id="div_ttt_grid" class="centered-block">
+		<div class="cell-ttt"></div>
+		<div class="cell-ttt"></div>
+		<div class="cell-ttt"></div>
+
+		<div class="cell-ttt"></div>
+		<div class="cell-ttt"></div>
+		<div class="cell-ttt"></div>
+
+		<div class="cell-ttt"></div>
+		<div class="cell-ttt"></div>
+		<div class="cell-ttt"></div>
+		<br style="clear: left" />
+	</div>
+	<script type="text/javascript" data-main="js/tic-tac-toe-main.js" src="bower_components/requirejs/require.js"></script>
+</body>
+
+</html>

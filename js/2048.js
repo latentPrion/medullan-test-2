@@ -295,5 +295,52 @@ define(function () {
 		return (shifted + collapsed);
 	};
 
+	Board.prototype.checkForVictoryCondition = function() {
+		/* If any square has a value of this.targetMaxNum, the
+		 * victory condition is satisfied.
+		 **/
+		return this.squares.indexOf(this.targetMaxNum) != -1;
+	};
+
+	// "Stride" can be negative.
+	Board.prototype.checkRowForMergeableSquares = function(startIndex, stride) {
+		var		i, currIndex, cmpIndex;
+
+		currIndex = startIndex;
+		for (i=0; i<3; i++, currIndex += stride) {
+			cmpIndex = currIndex + stride;
+
+			if (this.squares[currIndex] == this.squares[cmpIndex]) {
+				return true;
+			}
+		}
+
+		return false;
+	};
+
+	Board.prototype.checkForFailureCondition = function() {
+		var		i;
+
+		/**	EXPLANATION:
+		 * The board must first be full. We need to check each row, and
+		 * then each column.
+		 *
+		 * If the board is full, and we cannot find any contiguous blocks
+		 * that can be merged, the player has failed.
+		 **/
+		for (i=0; i<16; i+=4) {
+			if (this.checkRowForMergeableSquares(i, 1)) {
+				return false;
+			}
+		}
+		for (i=0; i<4; i++) {
+			if (this.checkRowForMergeableSquares(i, 4)) {
+				return false;
+			}
+		}
+
+		return true;
+	};
+
 	return lib;
 });

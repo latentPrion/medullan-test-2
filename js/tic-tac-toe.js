@@ -89,6 +89,7 @@ define(function() {
 		this.gridElementTagName = _gridElementTagName;
 		this.currentPlan = null;
 		this.currentPlayer = MARK_X;
+		this.gameOver = false;
 
 		this.haveCenterSquare = 0;
 		this.haveTopSquare = 0;
@@ -105,8 +106,8 @@ define(function() {
 		this.nEmpty = this.squares.length;
 	}
 
-	lib.newTicTacToeBoard = function(grid) {
-		return new TicTacToeBoard(grid);
+	lib.newTicTacToeBoard = function(grid, gridElementTagName) {
+		return new TicTacToeBoard(grid, gridElementTagName);
 	};
 
 	/* These *squareSet() functions are used when the AI is determining the
@@ -169,8 +170,9 @@ define(function() {
 			this.squares[i] = MARK_EMPTY;
 		}
 
+		this.gameOver = false;
 		this.selectFirstPlayer();
-		if (mode == 'single-player') {
+		if (this.mode == 'single-player') {
 			this.selectInitialPlan();
 
 			// AI is always the O player, and not the X player.
@@ -193,7 +195,7 @@ define(function() {
 		rngNum %= 2;
 
 		this.currentPlayer = (rngNum === 0) ?
-			MARK_X : MARK_Y;
+			MARK_X : MARK_O;
 	};
 
 	TicTacToeBoard.prototype.setSquare = function(square, mark) {
@@ -390,25 +392,6 @@ define(function() {
 		 * it in the grid.
 		 **/
 
-		/**	FIXME:
-		 * When the AI is executing the "loss" plan, it can begin over
-		 * writing squares that the user owns. This is due to the logic
-		 * that governs this function.
-		 *
-		 * The reason this can take place is that when the AI tests the
-		 * viability of the "loss" plan in "aiPlay()", it will always
-		 * get a "viable" answer. So it will always come here thinking
-		 * it is executing a viable plan.
-		 *
-		 * This function is also currently coded to assume that if a plan
-		 * was "viable" according to the test that was done by its caller,
-		 * then all of the squares required by the plan are owned by the
-		 * AI, or else available for taking.
-		 *
-		 * When the "loss" plan is being executed, this is not the case
-		 * since the loss plan just has all squares set. It will, then,
-		 * cause the AI to cheat by claiming squares that the user owns.
-		 **/
 		// HARD mode: check for centre square availability.
 		if (this.difficulty == 'hard' && lib.centerSquareSet(this.currentPlan)) {
 			if (!lib.centerSquareSet(this.squares)) {
@@ -419,7 +402,8 @@ define(function() {
 		}
 
 		// NORMAL mode: check for edge square availability.
-		if (this.difficulty == 'normal' && lib.edgeSquareSet(this.currentPlan)) {
+		if ((this.difficulty == 'normal' || this.difficulty == 'hard')
+			&& lib.edgeSquareSet(this.currentPlan)) {
 			var		top, bottom, left, right;
 
 			// Which edge(s) are set in the plan?
@@ -447,16 +431,17 @@ define(function() {
 		}
 
 		/* If the plan is not a center or edge square plan, or it is but
-		 * we already own the squares in question, proceed to set
+		 * we already own the center/edge squares in the plan, proceed to set
 		 * squares as normal.
 		 **/
-		for (i=0; i<this.squares.length; i++) {
+		for (i=0; i<this.currentPlan.length; i++) {
 			// Skip empty squares in the plan.
 			if (this.currentPlan[i] == MARK_EMPTY) { continue; }
 			// Skip squares in the plan that we already own on the grid.
 			if (this.squares[i] != MARK_EMPTY) { continue; }
 
 			this.setSquare(i, MARK_O);
+			return;
 		}
 	};
 
@@ -471,11 +456,11 @@ define(function() {
 	};
 
 	TicTacToeBoard.prototype.clickEvent = function(square) {
-		// Ignore clicks if the board is filled out.
-		if (this.nEmpty === 0) { return 0; }
+		// Ignore clicks if the board is filled out or game is over.
+		if (this.nEmpty === 0 || this.gameOver) { return 'ignore'; }
 
 		// Ignore clicks on already-filled squares. No cheating.
-		if (this.squares[square] != MARK_EMPTY) { return 0; }
+		if (this.squares[square] != MARK_EMPTY) { return 'ignore'; }
 
 		this.userPlay(square);
 		// Check for tie/victory condition.
@@ -484,7 +469,7 @@ define(function() {
 		if (this.checkForTieCondition())
 			{ return 'tie'; }
 
-		if (this.mode == 'two-player') {
+		if (this.mode === 'two-player') {
 			this.changePlayer();
 		}
 		else {
@@ -535,10 +520,10 @@ define(function() {
 				 * on to trying to compare the board against the
 				 * next plan, then.
 				 **/
-				if (this.squares[i] == MARK_EMPTY) { break; }
+				if (this.squares[j] == MARK_EMPTY) { break; }
 
 				// Award points.
-				if (this.squares[i] == MARK_X)
+				if (this.squares[j] == MARK_X)
 					{ xPoints++; }
 				else
 					{ oPoints++; }
@@ -557,8 +542,10 @@ define(function() {
 				if (xPoints > 0 && oPoints > 0) { break; }
 
 				// Finally, check for victory.
-				if (xPoints == 3 || oPoints == 3)
-					{ return true; }
+				if (xPoints == 3 || oPoints == 3) {
+					this.gameOver = true;
+					return true;
+				}
 			}
 		}
 
@@ -577,10 +564,10 @@ define(function() {
 		 * bound to, and fill them with blanks, Xs and Os that reflect
 		 * the current state of the board.
 		 **/
-		elems = this.grid.getElementsByTagName('div');
+		elems = this.grid.getElementsByTagName(this.gridElementTagName);
 
 		for (i=0; i<this.squares.length; i++) {
-			elems[i].innerHTML = '<span class="cell-mark">' +
+			elems[i].innerHTML = '<span class="cell-value">' +
 				this.squares[i] +
 				'</span>';
 		}
